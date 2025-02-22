@@ -1,4 +1,4 @@
-Template engine with cache for Rust, PHP and Pythom
+Template engine with cache for Rust, PHP and Python
 ===================================================
 
 Example of the Neutral TS cache in the terminal.
