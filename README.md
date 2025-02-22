@@ -1,5 +1,5 @@
-Rust template engine with cache and !cache
-==========================================
+Template engine with cache for Rust, PHP and Pythom
+===================================================
 
 Example of the Neutral TS cache in the terminal.
 
@@ -96,50 +96,20 @@ Example
 The example template is in the `neutral-cache-test/tpl` directory with the name `index.ntpl`, you can modify it as much as you want:
 
 ```plaintext
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Test Neutral TS cache</title>
-    </head>
-    <body>
-    <pre>
-        Outside cache : {:;CONTEXT->GET->inject:} vs {:;inject:}
-        Outside filter: {:&;CONTEXT->GET->inject:} vs {:&;inject:}
-    </pre>
-    {:cache; /10/{:;inject:}/ >>
-        {:^filled; CONTEXT->GET->exit >>
-            {:exit; {:;CONTEXT->GET->exit:} :}
-        :}
-        {:^;:}
-        <pre>
-            Arguments:
-            {:each; CONTEXT->GET key val >>
-                {:^;:}
-                {:&;key:} = {:;val:}
-                {:^;:}
-            :}
-            ----------------------------------------------------
-            Inject ....: {:;inject:} vs {:;CONTEXT->GET->inject:}
-            In cache ..: {:date; %H:%M:%S :} (10)
-            No cache ..: {:!cache; {:date; %H:%M:%S :} (!) :}
-            Nesting ...: {:cache; /20/ >>
-                {:date; %H:%M:%S :} (20) / {:!cache; {:date; %H:%M:%S :} (!) :}
-            :}
-            Crazy .....: {:!cache;
-                {:cache; /30/ >>
-                    {:date; %H:%M:%S :} (30) / {:cache; /40/ >>
-                        {:date; %H:%M:%S :} (40) / {:cache; /50/ >>
-                            {:date; %H:%M:%S :} (50) ({:;inject:}) / {:!cache;
-                                {:date; %H:%M:%S :} (!) {:;inject:}
-                            :}
-                        :}
-                    :}
-                :}
-            :}
-        </pre>
-    :}
-    </body>
-</html>
+{:cache; /300/ >>
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Cache</title>
+        </head>
+        <body>
+            <main>
+                <div>In cache:{:date; %H:%M:%S :}</div>
+                <div>No cache:{:!cache; {:date; %H:%M:%S :} :}</div>
+            </main>
+        </body>
+    </html>
+:}
 ```
 
 Links
